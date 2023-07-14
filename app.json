@@ -1,0 +1,63 @@
+{
+  "expo": {
+    "name": "NFTgenius",
+    "slug": "qloneai",
+    "version": "1.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/Icons/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/Icons/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#9B51E0"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos, so you can upload it on NFTgenius."
+        }
+      ]
+    ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.metastudia.Dememoriamios",
+      "splash": {
+        "image": "./assets/Icons/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#020304"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/Icons/adaptive-icon.png",
+        "backgroundColor": "#020304"
+      },
+      "package": "com.metastudia.Dememoriam",
+      "versionCode": 14,
+      "splash": {
+        "image": "./assets/Icons/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#020304"
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/Icons/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a3d498bf-796a-49e9-a266-18e5c8b1b2b1"
+      }
+    },
+    "owner": "andriuskevicius"
+  }
+}
