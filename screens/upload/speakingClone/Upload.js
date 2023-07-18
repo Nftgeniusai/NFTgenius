@@ -268,7 +268,7 @@ const Upload = ({ navigation, route }) => {
   // 3. Use text and image to generate video.
 
   const generateAnimation = () => {
-    const apiKey = 'YVc1bWIwQjBhR1ZtYVhOb2RtVnljMlV1WTI5dDpkeDNqNExWWldHYzhSel9qeGJLOVI='
+    const apiKey = ''
     console.log('3. Video generation step started:');
     StopVideo();
     setSaved(false);
@@ -315,14 +315,14 @@ const Upload = ({ navigation, route }) => {
   // 4. Gets video url to display it.
 
   const displayVideo = (id) => {
+    const apiKey = ''
     console.log(`New url looks like this https://api.d-id.com/talks/${id}`)
     const options = {
       method: 'GET',
       url: `https://api.d-id.com/talks/${id}`,
       headers: {
         accept: 'application/json',
-        //authorization: 'Basic YW5kcml1c2tldmljaXVzLmVybmVzdGFzQGdtYWlsLmNvbQ:6PuJ5Jdzyk_-CzC8gVUNF'
-        authorization: 'Basic YVc1bWIwQjBhR1ZtYVhOb2RtVnljMlV1WTI5dDpkeDNqNExWWldHYzhSel9qeGJLOVI='
+        authorization: `Basic ${apiKey}`
       }
     };
     
