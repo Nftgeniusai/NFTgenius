@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, Image, Dimensions, Pressable, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions, Pressable, TextInput, Keyboard, TouchableWithoutFeedback, BackHandler } from 'react-native'
 import Svg, { Path, G, Defs, Rect, ClipPath } from 'react-native-svg';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { COLORS, FONTS } from "../../../constants";
 import axios from "axios";
 import { getApiConfig } from '../../../functions/api';
@@ -65,6 +65,17 @@ const SocialConnect = ({navigation, setStep, setShowLogin, setName, setSurname, 
     setErrorMessages('');
     setStep(3);
   }
+
+  useEffect(() => {
+
+    const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            () => {
+              return true;
+            },
+          );
+          return () => backHandler.remove();
+    })
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>

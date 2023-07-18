@@ -388,7 +388,7 @@ const Registration = ({navigation}) => {
           null : 
           step === 12 ?
           null :
-          <ContinueButton validation={validation} step={step} setStep={setStep} navigation={navigation} handleEnterPressed={handleEnterPressed} setRegistrationStep={setRegistrationStep} registrationStep={registrationStep} onRegistration={onRegistration}  />
+          <ContinueButton validation={validation} password={password1} step={step} setStep={setStep} navigation={navigation} handleEnterPressed={handleEnterPressed} setRegistrationStep={setRegistrationStep} registrationStep={registrationStep} onRegistration={onRegistration}  />
         }
     </SafeAreaView>
   )

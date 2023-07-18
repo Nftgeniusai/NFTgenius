@@ -26,6 +26,7 @@ import NftCollectionSettings from '../aiNftGenerator/NftCollectionSettings';
 import NftSaving from '../aiNftGenerator/NftSaving'
 import AiAlgorithm from '../aiNftGenerator/AiAlgorithm';
 import PopUpInfo from '../../../components/PopUpInfo';
+import SavingTimer from '../../../components/SavingTimer';
 
 var width = Dimensions.get('window').width - 40;
 var width2 = Dimensions.get('window').width;
@@ -47,6 +48,7 @@ const Upload = ({ navigation, route }) => {
 
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const [genereatedId, setGeneratedId] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [infoVisible, setInfoVisible] = useState(false);
@@ -187,7 +189,7 @@ const Upload = ({ navigation, route }) => {
     setLoading(true);
     setLoadingTitle('Generating your story');
 
-      const apiKey = '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';
+      const apiKey = '';
       const client = axios.create({
           headers: {
             Authorization: "Bearer " + apiKey,
@@ -266,6 +268,7 @@ const Upload = ({ navigation, route }) => {
   // 3. Use text and image to generate video.
 
   const generateAnimation = () => {
+    const apiKey = 'YVc1bWIwQjBhR1ZtYVhOb2RtVnljMlV1WTI5dDpkeDNqNExWWldHYzhSel9qeGJLOVI='
     console.log('3. Video generation step started:');
     StopVideo();
     setSaved(false);
@@ -278,7 +281,7 @@ const Upload = ({ navigation, route }) => {
         headers: {
           accept: 'application/json',
           'content-type': 'application/json',
-          authorization: 'Basic YVc1bWIwQjBhR1ZtYVhOb2RtVnljMlV1WTI5dDpkeDNqNExWWldHYzhSel9qeGJLOVI='
+          authorization: `Basic ${apiKey}`
         },
         data: {
           script: {
@@ -448,7 +451,7 @@ const Upload = ({ navigation, route }) => {
   async function generateNftTextToImage (generateTime) {
     console.log('Starting generate TextToImage, selected model', collectionType);
     if(generateTime === 1) {
-      setLoading(true);
+      setGenerating(true);
     } 
     var edit = {
         "key": "MLxMaQ9Xpq7e6krcLfotAsVzLb5IIS1F6y0EnbVTq824rPLP8ljjb6Ip7HDs",
@@ -484,7 +487,7 @@ const Upload = ({ navigation, route }) => {
             checkIfDone(data.id)
           }, 5000);
         } else {
-          setLoading(false);
+          setGenerating(false);
           console.log(`Old saved nfts: `, generatedNfts);
           setGeneratedNfts(data.output);
           console.log(`New Saved nfts: `, generatedNfts);
@@ -501,7 +504,7 @@ const Upload = ({ navigation, route }) => {
 
     async function generateNftImageToImage () {
       setLoadingTitle('Generating your collection')
-      setLoading(true);
+      setGenerating(true);
       var edit = {
           "key": "MLxMaQ9Xpq7e6krcLfotAsVzLb5IIS1F6y0EnbVTq824rPLP8ljjb6Ip7HDs",
           "prompt": `((${promt})), hyper detail, unedited, symmetrical balance, in-frame, 8K masterpiece`,
@@ -510,7 +513,7 @@ const Upload = ({ navigation, route }) => {
           "init_image": uploadedImage,
           "width": "512",
           "height": "512",
-          "samples": "1",
+          "samples": "4",
           "num_inference_steps": "30",
           "safety_checker": "no",
           "enhance_prompt": "yes",
@@ -544,7 +547,7 @@ const Upload = ({ navigation, route }) => {
               checkIfDone(data.id)
             }, 5000);
           } else {
-            setLoading(false);
+            setGenerating(false);
             setGeneratedNfts(data.output)
             console.log(`Saved nft: `, data);
           }
@@ -558,7 +561,7 @@ const Upload = ({ navigation, route }) => {
 
   const checkIfDone = async (request_id) => {
     console.log('retrying...', request_id)
-    setLoading(true);
+    setGenerating(true);
     var edit = {
       "key": "MLxMaQ9Xpq7e6krcLfotAsVzLb5IIS1F6y0EnbVTq824rPLP8ljjb6Ip7HDs",
       "request_id": request_id
@@ -580,7 +583,7 @@ const Upload = ({ navigation, route }) => {
             checkIfDone(request_id)
           }, 10000);
         } else {
-          setLoading(false);
+          setGenerating(false);
           setGeneratedNfts(data.output)
           console.log(`Saved nft: `, data);
         }
@@ -884,7 +887,8 @@ const Upload = ({ navigation, route }) => {
           <NftButtons loading={loading} setLoading={setLoading} setStep={setStep} step={step} generateNfts={generateNfts} navigation={navigation} saveNFTsCollection={saveNFTsCollection} saveSettings={saveSettings} imagesAmount={imagesAmount} /> 
           : null
         }
-        <Loading loading={loading} title={loadingTitle} /> 
+        <Loading loading={loading} title={loadingTitle} />
+        { generating ? <SavingTimer navigation={navigation} setGenerating={setGenerating} /> : null }
         <PopUpInfo setInfoVisible={setInfoVisible} infoVisible={infoVisible} navigation={navigation} title={'Limit notice'} description={`You have already 5 posts in your profile, max allowed 5. Your next post will not be published.`} />
         </SafeAreaView>
         </TouchableWithoutFeedback>

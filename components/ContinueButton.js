@@ -7,7 +7,7 @@ var width = Dimensions.get('window').width - 32;
 const ContinueButton = (props) => {
   return (
     <View style={styles.buttonWrapper}>
-        { props.step === 10 ? 
+        { props.step === 10 && props.password !== '' ? 
         <Pressable style={({ pressed }) => [
             styles.button, props.validation ? styles.active : null,
             {
@@ -16,7 +16,7 @@ const ContinueButton = (props) => {
                   : props.validation ? '#9B51E0' : 'rgba(86, 86, 88, 1)'
               },
             ]} onPress={() => props.onRegistration()}>
-            <Text style={styles.buttonText}>Continue</Text>
+            <Text style={styles.buttonText}>Register</Text>
         </Pressable> :
         <Pressable style={({ pressed }) => [
             styles.button, props.validation ? styles.active : null,

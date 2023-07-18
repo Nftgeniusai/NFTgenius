@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, Pressable, RefreshControl, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image, Pressable, RefreshControl, ActivityIndicator, BackHandler } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import Svg, { Path, Rect } from 'react-native-svg'
 import { COLORS, FONTS } from '../../constants';
@@ -101,6 +101,16 @@ const User = ({ navigation, route }) => {
     getPosts();
   }, []);
 
+  useEffect(() => {
+
+    const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            () => {
+              return true;
+            },
+          );
+          return () => backHandler.remove();
+    })
   
   return (
 
